@@ -1,7 +1,46 @@
 import React from "react";
-
+import Slider from "react-slick";
+import img1 from "../styles/download.png";
+import img2 from "../styles/download1.png";
+import img3 from "../styles/download2.png";
+import img4 from "../styles/download3.png";
+import img5 from "../styles/download4.png";
+import img6 from "../styles/download5.png";
 import group_img from "../styles/team-group.jpg";
 
+const allReasons = [
+  { img: img1, alt: "img1", content: "CELEBRATED THEME PARTIES" },
+  { img: img2, alt: "img2", content: "CARLOS AND SAKURA" },
+  { img: img3, alt: "img3", content: "GAMES AND MORE" },
+  { img: img4, alt: "img4", content: "AWESOME FOOD" },
+  { img: img5, alt: "img5", content: "BRILLIANT CO-WORKERS" },
+  { img: img6, alt: "img6", content: "QUALITY WORK" },
+];
+const settings = {
+  dots: true,
+  speed: 500,
+  arrows: false,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 const LandingPage = () => {
   return (
     <div className="career">
@@ -48,6 +87,22 @@ const LandingPage = () => {
               offers
             </p>
           </div>
+        </div>
+        <div className="container" id="reason_content">
+          <Slider {...settings}>
+            {allReasons.map((item, index) => {
+              return (
+                <div key={index}>
+                  <img
+                    src={item.img}
+                    alt={item.alt}
+                    style={{ margin: "auto" }}
+                  />
+                  <h3 style={{ color: "black" }}>{item.content}</h3>
+                </div>
+              );
+            })}
+          </Slider>
         </div>
       </section>
       <section className="career_3">

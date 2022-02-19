@@ -447,3 +447,51 @@ input[type="number"] {
   color: #000;
   flex-wrap: wrap;
 }
+/* ==========================contact=========================== */
+.contact_main {
+  display: flex;
+  flex-direction: row;
+  padding-top: 50px;
+}
+.contact_main .contact-left {
+  width: 70%;
+  padding-right: 35px;
+  margin-right: 35px;
+  border-right: 0.0001rem solid grey;
+}
+@media screen and (max-width: 1024px) {
+  .contact_main {
+    flex-direction: column;
+  }
+  .contact_main .contact-left {
+    width: 100%;
+    padding-right: 0;
+    margin-right: 0;
+    border-right: 0;
+    padding-bottom: 35px;
+    margin-bottom: 35px;
+    border-bottom: 0.0001rem solid grey;
+  }
+}
+.clk {
+  display: flex;
+  align-items: center;
+}
+.contact-members {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.contact-member {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.linkedin {
+  position: sticky;
+  top: 0%;
+  left: 50%;
+  transform: translate(0%, -100%);
+  width: 35px;
+  height: 35px;
+}

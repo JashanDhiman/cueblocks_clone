@@ -6,10 +6,96 @@ import cz_clk from "../styles/clock-brno.png";
 import ravi from "../styles/ravi.png";
 import pancham from "../styles/pancham.png";
 import linkedin from "../styles/linkedin.svg";
+import Form from "./Form";
 
 const Contact = () => {
+  const fieldsToShow = [
+    {
+      field: [
+        {
+          title: "name",
+          placeholder: "Enter your name",
+          mendetory: true,
+          type: "text",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "email",
+          placeholder: "Enter your email",
+          mendetory: true,
+          type: "email",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "phone",
+          placeholder: "Enter your phone",
+          mendetory: false,
+          type: "number",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "website",
+          placeholder: "Enter your website",
+          mendetory: false,
+          type: "text",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "services that intrests you",
+          placeholder: "",
+          mendetory: true,
+          type: "checkbox",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "Please share details of your story & project requirements",
+          placeholder: "",
+          mendetory: true,
+          type: "textbox",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "How did you hear about CueBlocks?",
+          placeholder: "",
+          mendetory: false,
+          type: "text",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "How did you hear about CueBlocks? (optional)",
+          placeholder:
+            "Please share details of your story & project requirements",
+          mendetory: true,
+          type: "textbox",
+        },
+      ],
+    },
+  ];
+  const initialValues = { name: "", email: "", phone: "", job: "", field: "" };
   return (
     <>
+      <Form props={[fieldsToShow, initialValues]} />
       <Navbar />
       <div className="main-content">
         <section>
@@ -36,13 +122,15 @@ const Contact = () => {
                   </div>
                 </li>
               </ul>
+
+              <Form props={[fieldsToShow, initialValues]} />
             </div>
             <div className="contact-right">
               <h2>We work from</h2>
-              <div>
+              <div className="flex-center" style={{ flexDirection: "column" }}>
                 <div>
                   <div className="clk">
-                    <img src={in_clk} alt="india" />
+                    <img className="clk_img" src={in_clk} alt="india" />
                     <h3>CHANDIGARH, IN</h3>
                   </div>
                   S.C.O 822, Second Floor,<br></br> NAC Mani Majra, Chandigarh -
@@ -51,7 +139,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <div className="clk">
-                    <img src={cz_clk} alt="brno" />
+                    <img className="clk_img" src={cz_clk} alt="brno" />
                     <h3>BRNO, CZ</h3>
                   </div>
                   Lidická 700/19, Veveří, Brno - 602 00,

@@ -452,6 +452,7 @@ input[type="number"] {
   display: flex;
   flex-direction: row;
   padding-top: 50px;
+  text-align: center;
 }
 .contact_main .contact-left {
   width: 70%;
@@ -472,6 +473,9 @@ input[type="number"] {
     margin-bottom: 35px;
     border-bottom: 0.0001rem solid grey;
   }
+}
+.clk .clk_img {
+  width: clamp(120px, 20vw, 200px);
 }
 .clk {
   display: flex;

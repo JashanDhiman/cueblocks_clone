@@ -88,17 +88,17 @@ body {
 }
 h1 {
   font-weight: 900;
-  color: black;
+  color: #000;
   font-size: clamp(2rem, 3.5vw, 3rem);
 }
 h2 {
   font-weight: 900;
-  color: black;
+  color: #000;
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
 }
 h3 {
   font-weight: 900;
-  color: black;
+  color: #000;
   font-size: clamp(1rem, 3.5vw, 1.3rem);
 }
 ul {
@@ -139,7 +139,7 @@ img {
   z-index: 10;
   background-color: #fff;
   font-size: 2rem;
-  color: black;
+  color: #000;
   box-shadow: 0 0 5px 0 #eee;
   padding: 0 5%;
 }
@@ -166,16 +166,16 @@ img {
   flex-direction: column;
   align-items: center;
   font-size: 1rem;
-  color: black;
+  color: #000;
   font-weight: 100;
 }
 .nav_link:hover {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
 }
 .active {
-  color: black;
+  color: #000;
   font-weight: 500;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
 }
 .sidebar {
   width: 100vw;
@@ -244,7 +244,7 @@ section {
 }
 .border-dark {
   height: 16px;
-  background-color: black;
+  background-color: #000;
 }
 .career .career_2 {
   display: flex;
@@ -289,7 +289,7 @@ section {
   flex-direction: row;
   font-size: 24px;
   font-weight: 900;
-  color: black;
+  color: #000;
 }
 .career .career_3 .container .posts {
   width: 50%;
@@ -314,17 +314,48 @@ em,
 .alert {
   color: red;
 }
-.apply_form .form_inputs {
+.apply_form .form_inputs_carrer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.apply_form .form_row {
+.apply_form .form_inputs_contact {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+.apply_form .form_inputs_carrer .form_row_carrer {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid black;
-  color: black;
+  border-bottom: 1px solid #000;
+  color: #000;
   width: calc(100% - 30px);
   margin-bottom: 10px;
+}
+.apply_form .form_inputs_contact .form_row_contact {
+  border: 1px solid #000;
+  border-radius: 10px;
+  height: 68px;
+  padding: 13px 26px;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+  background-color: transparent;
+  margin-bottom: 25px;
+  clear: both;
+}
+.elipse-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.field_active {
+  transform: translateY(-30px);
+  font-size: 16px;
+  z-index: 2;
+  background-color: #fff;
+  padding: 0 5px;
+  left: 20px;
 }
 input {
   border: 0;
@@ -362,7 +393,7 @@ input[type="number"] {
   width: 200px;
 }
 .submit_button:hover {
-  background-color: black;
+  background-color: #000;
   color: #fff;
 }
 .success_msg {
@@ -395,7 +426,7 @@ input[type="number"] {
   margin: 0 auto;
 }
 .sub_footer .clients_exp .position {
-  color: black;
+  color: #000;
 }
 .sub_footer .clients_exp .clients_logo {
   border-top: 0.0000001rem solid grey;

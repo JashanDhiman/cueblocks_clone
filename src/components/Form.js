@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Form = ({ props }) => {
-  const [fieldsToShow, initialValues] = props;
-
+  const [fieldsToShow, initialValues, page] = props;
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  var bodyFormData = new FormData();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-    //console.log(name, value);
+    if (name === "attachment") {
+      var file = e.target.files[0];
+      console.log(formValues);
+      setFormValues({ ...formValues, [name]: file });
+    } else {
+      setFormValues({ ...formValues, [name]: value });
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+    for (var key in formValues) {
+      bodyFormData.append(key, formValues[key]);
+    }
+    axios({
+      method: "post",
+      url: "https://apistaging.cueblocks.com/",
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -37,19 +58,14 @@ const Form = ({ props }) => {
         errors.email = "This is not valid email format!";
       }
     }
-    if ("phone" in initialValues) {
-      if (!values.phone) {
-        errors.phone = "phone no is required!";
+    if ("mobilephone" in initialValues) {
+      if (!values.mobilephone) {
+        errors.mobilephone = "phone no is required!";
       }
     }
-    if ("job" in initialValues) {
-      if (!values.job) {
-        errors.job = "job title is required!";
-      }
-    }
-    if ("file" in initialValues) {
-      if (!values.file) {
-        errors.file = "file is required!";
+    if ("jobtitle" in initialValues) {
+      if (!values.jobtitle) {
+        errors.jobtitle = "job title is required!";
       }
     }
     return errors;
@@ -63,28 +79,32 @@ const Form = ({ props }) => {
           toastId: "*",
         })}
 
-      <form className="apply_form" onSubmit={handleSubmit}>
+      <form
+        className="apply_form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <h2>
           Apply Now!<br></br>
           <span id="indicate">
             (<em>* </em>Indicates Mandatory Fields)
           </span>
         </h2>
-        <div className="form_inputs">
+        <div className={`form_inputs${page}`}>
           {/*{console.log(formValues)}*/}
           {fieldsToShow.map((entry) => {
             return entry.field.map((f, index) => {
               return (
-                <div className="form_row" key={index}>
+                <div className={`form_row${page}`} key={index}>
                   <label>
                     {f.title}
                     {f.mendetory ? <em>*</em> : <span>(optional)</span>}
                   </label>
-                  <input
-                    type="text"
-                    name={f.title}
+                  <f.tag
+                    type={f.type}
+                    name={f.name}
                     placeholder={f.placeholder}
-                    value={formValues[f.title]}
+                    //value={formValues[f.name]}
                     onChange={handleChange}
                   />
                   <p className="alert">{formErrors[f.title]}</p>

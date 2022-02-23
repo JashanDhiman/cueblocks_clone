@@ -13,7 +13,6 @@ const Form = ({ props }) => {
     const { name, value } = e.target;
     if (name === "attachment") {
       var file = e.target.files[0];
-      console.log(formValues);
       setFormValues({ ...formValues, [name]: file });
     } else {
       setFormValues({ ...formValues, [name]: value });
@@ -23,21 +22,19 @@ const Form = ({ props }) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
-    for (var key in formValues) {
-      bodyFormData.append(key, formValues[key]);
-    }
-    axios({
-      method: "post",
-      url: "https://apistaging.cueblocks.com/",
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then((response) => {
-        console.log(response);
+    if (Object.keys(formErrors).length === 0) {
+      for (var key in formValues) {
+        bodyFormData.append(key, formValues[key]);
+      }
+      axios({
+        method: "post",
+        url: "https://apistaging.cueblocks.com/",
+        data: bodyFormData,
+        headers: { "Content-Type": "multipart/form-data" },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((response) => {})
+        .catch((err) => {});
+    }
   };
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -91,7 +88,6 @@ const Form = ({ props }) => {
           </span>
         </h2>
         <div className={`form_inputs${page}`}>
-          {/*{console.log(formValues)}*/}
           {fieldsToShow.map((entry) => {
             return entry.field.map((f, index) => {
               return (
@@ -104,7 +100,7 @@ const Form = ({ props }) => {
                     type={f.type}
                     name={f.name}
                     placeholder={f.placeholder}
-                    //value={formValues[f.name]}
+                    value={f.type === "file" ? this : formValues[f.name]}
                     onChange={handleChange}
                   />
                   <p className="alert">{formErrors[f.title]}</p>

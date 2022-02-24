@@ -7,8 +7,18 @@ const Form = ({ props }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const focus = {
+    name: false,
+    email: false,
+    mobilephone: false,
+    website: false,
+    details: false,
+    about: false,
+  };
+  const [focusTitle, setFocusTitle] = useState(focus);
+  const focusOn = "focusOn";
+  const focusOff = "focusOff";
   var bodyFormData = new FormData();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "attachment") {
@@ -32,8 +42,12 @@ const Form = ({ props }) => {
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
       })
-        .then((response) => {})
-        .catch((err) => {});
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   useEffect(() => {
@@ -67,6 +81,119 @@ const Form = ({ props }) => {
     }
     return errors;
   };
+  const handleFocus = (t) => {
+    setFocusTitle({ ...focusTitle, [t.name]: true });
+  };
+  const handleBlur = (t) => {
+    if (t.value) {
+      setFocusTitle({ ...focusTitle, [t.name]: true });
+    } else {
+      setFocusTitle({ ...focusTitle, [t.name]: false });
+    }
+  };
+  const inputType = (f) => {
+    if (f.type === "text") {
+      return (
+        <input
+          type={f.type}
+          name={f.name}
+          placeholder={f.placeholder}
+          id={f.name}
+          className="input"
+          value={formValues[f.name]}
+          onChange={handleChange}
+          onFocus={(e) => handleFocus(e.target)}
+          onBlur={(e) => handleBlur(e.target)}
+        />
+      );
+    }
+    if (f.type === "number") {
+      return (
+        <input
+          mask="+(99) 99999-99999"
+          type={f.type}
+          name={f.name}
+          placeholder={f.placeholder}
+          id={f.name}
+          className="input"
+          value={formValues[f.name]}
+          onChange={handleChange}
+          onFocus={(e) => handleFocus(e.target)}
+          onBlur={(e) => handleBlur(e.target)}
+        />
+      );
+    }
+    if (f.type === "checkbox") {
+      return (
+        <div className="checkbox_div">
+          {f.checkBox.map((c, index) => {
+            return (
+              <div className="checkbox_row" key={index}>
+                <input
+                  type={f.type}
+                  id={c}
+                  //value={formValues[f.name]}
+                  //onChange={handleChange}
+                  //onFocus={(e) => handleFocus(e.target)}
+                  //onBlur={(e) => handleBlur(e.target)}
+                />
+                <label htmlFor={c} style={{ cursor: "pointer" }}>
+                  <span></span>
+                  {c}
+                </label>
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    if (f.type === "textarea") {
+      return (
+        <textarea
+          type={f.type}
+          name={f.name}
+          placeholder={f.placeholder}
+          id={f.name}
+          className="input"
+          spellCheck="false"
+          value={formValues[f.name]}
+          onChange={handleChange}
+          onFocus={(e) => handleFocus(e.target)}
+          onBlur={(e) => handleBlur(e.target)}
+        />
+      );
+    }
+    if (f.type === "file") {
+      return (
+        <input
+          type={f.type}
+          name={f.name}
+          placeholder={f.placeholder}
+          id={f.name}
+          className="input"
+          value={this}
+          onChange={handleChange}
+          onFocus={(e) => handleFocus(e.target)}
+          onBlur={(e) => handleBlur(e.target)}
+        />
+      );
+    }
+    if (f.type === "email") {
+      return (
+        <input
+          type="email"
+          name={f.name}
+          placeholder={f.placeholder}
+          id={f.name}
+          className="input"
+          value={this}
+          onChange={handleChange}
+          onFocus={(e) => handleFocus(e.target)}
+          onBlur={(e) => handleBlur(e.target)}
+        />
+      );
+    }
+  };
 
   return (
     <div className="container">
@@ -75,7 +202,6 @@ const Form = ({ props }) => {
         toast.success("Applied Successfully", {
           toastId: "*",
         })}
-
       <form
         className="apply_form"
         onSubmit={handleSubmit}
@@ -88,80 +214,20 @@ const Form = ({ props }) => {
           </span>
         </h2>
         <div className={`form_inputs${page}`}>
-          {fieldsToShow.map((entry) => {
-            return entry.field.map((f, index) => {
+          {fieldsToShow.map((entry, index) => {
+            return entry.field.map((f) => {
               return (
-                <div className={`form_row${page}`} key={index}>
-                  <label>
+                <div className={f.class} key={index}>
+                  <label className={focusTitle[f.name] ? focusOn : focusOff}>
                     {f.title}
                     {f.mendetory ? <em>*</em> : <span>(optional)</span>}
                   </label>
-                  <f.tag
-                    type={f.type}
-                    name={f.name}
-                    placeholder={f.placeholder}
-                    value={f.type === "file" ? this : formValues[f.name]}
-                    onChange={handleChange}
-                  />
+                  {inputType(f)}
                   <p className="alert">{formErrors[f.title]}</p>
                 </div>
               );
             });
           })}
-          {/*<div className="form_row">
-            <label>
-              Email<em>*</em>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formValues.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-            <p className="alert">{formErrors.email}</p>
-          </div>
-          <div className="form_row">
-            <label>
-              Phone <em>*</em>
-            </label>
-            <input
-              type="number"
-              name="phone"
-              onChange={handleChange}
-              value={formValues.number}
-              placeholder="Enter your phone"
-            />
-            <p className="alert">{formErrors.phone}</p>
-          </div>
-          <div className="form_row">
-            <label>
-              Job<em>*</em>
-            </label>
-            <input
-              type="text"
-              name="job"
-              placeholder="Enter job title"
-              value={formValues.job}
-              onChange={handleChange}
-            />
-            <p className="alert">{formErrors.job}</p>
-          </div>
-          <div className="form_row">
-            <label>
-              Attachment(.png, .pdf, .txt, .doc)
-              <em>*</em>
-              <br></br>
-              Max size allowed-2 MB
-            </label>
-            <input
-              type="file"
-              name="file"
-              value={formValues.file}
-              onChange={handleChange}
-            />
-            <p className="alert">{formErrors.file}</p>
-          </div>*/}
         </div>
         <input type="submit" className="submit_button" />
       </form>
@@ -172,3 +238,15 @@ const Form = ({ props }) => {
 };
 
 export default Form;
+{
+  /*<f.tag
+type={f.type}
+name={f.name}
+placeholder={f.placeholder}
+className={f.tag === "input" ? "input" : ""}
+value={f.type === "file" ? this : formValues[f.name]}
+onChange={handleChange}
+onFocus={(e) => handleFocus(e.target)}
+onBlur={(e) => handleBlur(e.target)}
+/>;*/
+}

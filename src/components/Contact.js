@@ -14,9 +14,12 @@ const Contact = () => {
       field: [
         {
           title: "name",
-          placeholder: "Enter your name",
-          mendetory: true,
           type: "text",
+          name: "name",
+          class: "form_row",
+          placeholder: "",
+          mendetory: true,
+          focus: true,
         },
       ],
     },
@@ -24,9 +27,12 @@ const Contact = () => {
       field: [
         {
           title: "email",
-          placeholder: "Enter your email",
-          mendetory: true,
           type: "email",
+          name: "email",
+          class: "form_row",
+          placeholder: "",
+          mendetory: true,
+          focus: true,
         },
       ],
     },
@@ -34,9 +40,12 @@ const Contact = () => {
       field: [
         {
           title: "phone",
-          placeholder: "Enter your phone",
-          mendetory: false,
           type: "number",
+          name: "mobilephone",
+          class: "form_row",
+          placeholder: "",
+          mendetory: false,
+          focus: true,
         },
       ],
     },
@@ -44,9 +53,12 @@ const Contact = () => {
       field: [
         {
           title: "website",
-          placeholder: "Enter your website",
-          mendetory: false,
           type: "text",
+          name: "website",
+          class: "form_row",
+          placeholder: "",
+          mendetory: false,
+          focus: true,
         },
       ],
     },
@@ -54,9 +66,23 @@ const Contact = () => {
       field: [
         {
           title: "services that intrests you",
-          placeholder: "",
-          mendetory: true,
           type: "checkbox",
+          name: "attachment",
+          class: "select-service",
+          checkBox: [
+            "Magento",
+            "Shopify",
+            "Web Development",
+            "Creative Design",
+            "Organic Search",
+            "Digital Advertising",
+            "Wordpress",
+            "Email Marketing",
+            "Conversion",
+            "Other",
+          ],
+          mendetory: true,
+          focus: false,
         },
       ],
     },
@@ -64,9 +90,12 @@ const Contact = () => {
       field: [
         {
           title: "Please share details of your story & project requirements",
+          type: "textarea",
+          name: "details",
+          class: "textbox_row",
           placeholder: "",
           mendetory: true,
-          type: "textbox",
+          focus: true,
         },
       ],
     },
@@ -74,28 +103,29 @@ const Contact = () => {
       field: [
         {
           title: "How did you hear about CueBlocks?",
+          type: "text",
+          name: "about",
+          class: "form_row",
           placeholder: "",
           mendetory: false,
-          type: "text",
-        },
-      ],
-    },
-    {
-      field: [
-        {
-          title: "How did you hear about CueBlocks? (optional)",
-          placeholder:
-            "Please share details of your story & project requirements",
-          mendetory: true,
-          type: "textbox",
+          focus: true,
         },
       ],
     },
   ];
-  const initialValues = { name: "", email: "", phone: "", job: "", field: "" };
+  const initialValues = {
+    //email: "jashan@cueblocks.com",
+    //name: "jashan dhiman",
+    //jobtitle: "Testing - Api Creation",
+    //mobilephone: "9872076386",
+    //attachment: "",
+    email: "",
+    name: "",
+    jobtitle: "",
+    mobilephone: "",
+  };
   return (
     <>
-      <Form props={[fieldsToShow, initialValues]} />
       <Navbar />
       <div className="main-content">
         <section>
@@ -123,7 +153,7 @@ const Contact = () => {
                 </li>
               </ul>
 
-              <Form props={[fieldsToShow, initialValues]} />
+              <Form props={[fieldsToShow, initialValues, "_contact"]} />
             </div>
             <div className="contact-right">
               <h2>We work from</h2>

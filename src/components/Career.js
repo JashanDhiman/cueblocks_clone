@@ -10,11 +10,12 @@ const Career = () => {
     {
       field: [
         {
-          tag: "input",
           title: "name",
+          class: "form_row",
           name: "name",
           placeholder: "Enter your name",
           mendetory: true,
+          focus: false,
           type: "text",
         },
       ],
@@ -22,11 +23,12 @@ const Career = () => {
     {
       field: [
         {
-          tag: "input",
           title: "email",
+          class: "form_row",
           name: "email",
           placeholder: "Enter your email",
           mendetory: true,
+          focus: false,
           type: "email",
         },
       ],
@@ -34,11 +36,12 @@ const Career = () => {
     {
       field: [
         {
-          tag: "input",
           title: "phone",
+          class: "form_row",
           name: "mobilephone",
           placeholder: "Enter your phone",
           mendetory: true,
+          focus: false,
           type: "number",
         },
       ],
@@ -46,11 +49,12 @@ const Career = () => {
     {
       field: [
         {
-          tag: "input",
           title: "job",
+          class: "form_row",
           name: "jobtitle",
           placeholder: "Enter job title",
           mendetory: true,
+          focus: false,
           type: "text",
         },
       ],
@@ -58,21 +62,22 @@ const Career = () => {
     {
       field: [
         {
-          tag: "input",
           title: "file",
+          class: "form_row",
           name: "attachment",
           placeholder: "provide file",
           mendetory: true,
+          focus: false,
           type: "file",
         },
       ],
     },
   ];
   const initialValues = {
-    email: "jashan@cueblocks.com",
-    name: "Jashan Dhiman",
-    jobtitle: "Testing - Api Creation",
-    mobilephone: "9872076386",
+    email: "",
+    name: "",
+    jobtitle: "",
+    mobilephone: "",
     attachment: "",
   };
   return (

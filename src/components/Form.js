@@ -7,6 +7,18 @@ const Form = ({ props }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [checked, setChecked] = useState({
+    Conversion: false,
+    "Creative Design": false,
+    "Digital Advertising": false,
+    "Email Marketing": false,
+    Magento: false,
+    "Organic Search": false,
+    Other: false,
+    Shopify: false,
+    "Web Development": false,
+    Wordpress: false,
+  });
   const focus = {
     name: false,
     email: false,
@@ -22,8 +34,15 @@ const Form = ({ props }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "attachment") {
-      var file = e.target.files[0];
-      setFormValues({ ...formValues, [name]: file });
+      setFormValues({ ...formValues, [name]: e.target.files[0] });
+    } else if (e.target.type === "checkbox") {
+      setChecked({ ...checked, [e.target.id]: e.target.checked });
+      if (e.target.checked) {
+        let listStr = formValues[e.target.name]
+          ? `${formValues[e.target.name]}, ${e.target.id}`
+          : formValues[e.target.name] + e.target.id;
+        setFormValues({ ...formValues, [name]: listStr });
+      }
     } else {
       setFormValues({ ...formValues, [name]: value });
     }
@@ -33,21 +52,65 @@ const Form = ({ props }) => {
     setFormErrors(validate(formValues));
     setIsSubmit(true);
     if (Object.keys(formErrors).length === 0) {
-      for (var key in formValues) {
-        bodyFormData.append(key, formValues[key]);
-      }
-      axios({
-        method: "post",
-        url: "https://apistaging.cueblocks.com/",
-        data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then((response) => {
-          console.log(response);
+      if (page === "_carrer") {
+        for (let key in formValues) {
+          bodyFormData.append(key, formValues[key]);
+        }
+        axios({
+          method: "post",
+          url: "https://apistaging.cueblocks.com/",
+          data: bodyFormData,
+          headers: { "Content-Type": "multipart/form-data" },
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      if (page === "_contact") {
+        var fields = [];
+        for (let key in formValues) {
+          fields.push({ name: key, value: formValues[key] });
+        }
+        let data = {
+          submittedAt: new Date().getTime(),
+          fields: fields,
+
+          legalConsentOptions: {
+            consent: {
+              consentToProcess: true,
+              text: "I agree to allow Example Company to store and process my personal data.",
+              communications: [
+                {
+                  value: true,
+                  subscriptionTypeId: 999,
+                  text: "I agree to receive marketing communications from Example Company.",
+                },
+              ],
+            },
+          },
+        };
+        var final_data = JSON.stringify(data);
+        fetch(
+          "https://api.hsforms.com/submissions/v3/integration/submit/6881310/78c7882f-e577-4fcf-80ff-e451b4a1b6bf",
+          {
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: final_data,
+          }
+        )
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
   useEffect(() => {
@@ -132,10 +195,9 @@ const Form = ({ props }) => {
                 <input
                   type={f.type}
                   id={c}
-                  //value={formValues[f.name]}
-                  //onChange={handleChange}
-                  //onFocus={(e) => handleFocus(e.target)}
-                  //onBlur={(e) => handleBlur(e.target)}
+                  name={f.name}
+                  checked={checked[c]}
+                  onChange={(e) => handleChange(e)}
                 />
                 <label htmlFor={c} style={{ cursor: "pointer" }}>
                   <span></span>
@@ -218,7 +280,11 @@ const Form = ({ props }) => {
             return entry.field.map((f) => {
               return (
                 <div className={f.class} key={index}>
-                  <label className={focusTitle[f.name] ? focusOn : focusOff}>
+                  <label
+                    className={
+                      f.focus && focusTitle[f.name] ? focusOn : focusOff
+                    }
+                  >
                     {f.title}
                     {f.mendetory ? <em>*</em> : <span>(optional)</span>}
                   </label>
@@ -238,15 +304,3 @@ const Form = ({ props }) => {
 };
 
 export default Form;
-{
-  /*<f.tag
-type={f.type}
-name={f.name}
-placeholder={f.placeholder}
-className={f.tag === "input" ? "input" : ""}
-value={f.type === "file" ? this : formValues[f.name]}
-onChange={handleChange}
-onFocus={(e) => handleFocus(e.target)}
-onBlur={(e) => handleBlur(e.target)}
-/>;*/
-}

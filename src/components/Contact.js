@@ -15,7 +15,7 @@ const Contact = () => {
         {
           title: "name",
           type: "text",
-          name: "name",
+          name: "firstname",
           class: "form_row",
           placeholder: "",
           mendetory: true,
@@ -41,7 +41,7 @@ const Contact = () => {
         {
           title: "phone",
           type: "number",
-          name: "mobilephone",
+          name: "phone",
           class: "form_row",
           placeholder: "",
           mendetory: false,
@@ -67,7 +67,7 @@ const Contact = () => {
         {
           title: "services that intrests you",
           type: "checkbox",
-          name: "attachment",
+          name: "services",
           class: "select-service",
           checkBox: [
             "Magento",
@@ -91,7 +91,7 @@ const Contact = () => {
         {
           title: "Please share details of your story & project requirements",
           type: "textarea",
-          name: "details",
+          name: "about",
           class: "textbox_row",
           placeholder: "",
           mendetory: true,
@@ -104,7 +104,7 @@ const Contact = () => {
         {
           title: "How did you hear about CueBlocks?",
           type: "text",
-          name: "about",
+          name: "hearabout",
           class: "form_row",
           placeholder: "",
           mendetory: false,
@@ -114,15 +114,88 @@ const Contact = () => {
     },
   ];
   const initialValues = {
-    //email: "jashan@cueblocks.com",
-    //name: "jashan dhiman",
-    //jobtitle: "Testing - Api Creation",
-    //mobilephone: "9872076386",
-    //attachment: "",
+    firstname: "",
+    email: "",
+    phone: "",
+    website: "",
+    services: "",
+    about: "",
+    hearabout: "",
+  };
+  //----------------------------------------------------------------------------------
+  const fieldsToShow_carrer = [
+    {
+      field: [
+        {
+          title: "name",
+          class: "form_row",
+          name: "name",
+          placeholder: "Enter your name",
+          mendetory: true,
+          focus: false,
+          type: "text",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "email",
+          class: "form_row",
+          name: "email",
+          placeholder: "Enter your email",
+          mendetory: true,
+          focus: false,
+          type: "email",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "phone",
+          class: "form_row",
+          name: "mobilephone",
+          placeholder: "Enter your phone",
+          mendetory: true,
+          focus: false,
+          type: "number",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "job",
+          class: "form_row",
+          name: "jobtitle",
+          placeholder: "Enter job title",
+          mendetory: true,
+          focus: false,
+          type: "text",
+        },
+      ],
+    },
+    {
+      field: [
+        {
+          title: "file",
+          class: "form_row",
+          name: "attachment",
+          placeholder: "provide file",
+          mendetory: true,
+          focus: false,
+          type: "file",
+        },
+      ],
+    },
+  ];
+  const initialValues_carrer = {
     email: "",
     name: "",
     jobtitle: "",
     mobilephone: "",
+    attachment: "",
   };
   return (
     <>
@@ -154,6 +227,12 @@ const Contact = () => {
               </ul>
 
               <Form props={[fieldsToShow, initialValues, "_contact"]} />
+              <hr></hr>
+              {/*<Form
+                props={[fieldsToShow_carrer, initialValues_carrer, "_carrer"]}
+              />
+              <hr></hr>
+              <Form props={[fieldsToShow, initialValues, "_contact"]} />*/}
             </div>
             <div className="contact-right">
               <h2>We work from</h2>

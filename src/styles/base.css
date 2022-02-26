@@ -71,7 +71,9 @@
 /*========== Button Dark/Light ==========*/
 
 /*==================== BASE ====================*/
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -391,13 +393,22 @@ input[type="number"] {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.apply_form .form_inputs_carrer .form_row_carrer {
+.apply_form .form_inputs_carrer .form_row {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #000;
   color: #000;
   width: calc(100% - 30px);
   margin-bottom: 10px;
+}
+.apply_form .form_inputs_carrer .form_row .input {
+  font-size: 18px;
+  border: 0;
+  padding: 10px 0;
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  outline: none;
 }
 /* --------------form contact ---------------------- */
 .apply_form .form_inputs_contact {
@@ -482,6 +493,7 @@ input[type="number"] {
 }
 .apply_form .form_inputs_contact .textbox_row {
   position: relative;
+  margin-bottom: 20px;
 }
 .apply_form .form_inputs_contact .textbox_row textarea {
   border: 1px solid #000;

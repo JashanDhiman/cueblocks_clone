@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import styled from "@emotion/styled";
 const Form = ({ props }) => {
   const [fieldsToShow, initialValues, page] = props;
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [attachmentError, setAttachmentError] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+
   const [checked, setChecked] = useState({
     Conversion: false,
     "Creative Design": false,
@@ -19,22 +22,38 @@ const Form = ({ props }) => {
     "Web Development": false,
     Wordpress: false,
   });
-  const focus = {
-    name: false,
-    email: false,
-    mobilephone: false,
-    website: false,
-    details: false,
-    about: false,
-  };
-  const [focusTitle, setFocusTitle] = useState(focus);
-  const focusOn = "focusOn";
-  const focusOff = "focusOff";
+  //const focus = {
+  //  name: false,
+  //  email: false,
+  //  mobilephone: false,
+  //  website: false,
+  //  details: false,
+  //  about: false,
+  //};
+  //const [focusTitle, setFocusTitle] = useState(focus);
+  //const focusOn = "focusOn";
+  //const focusOff = "focusOff";
   var bodyFormData = new FormData();
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "attachment") {
-      setFormValues({ ...formValues, [name]: e.target.files[0] });
+      const uplodedFile = e.target.files[0];
+      if (
+        (uplodedFile.type === "application/pdf" ||
+          uplodedFile.type === "text/plain") &&
+        uplodedFile.size <= 2 * 1024 * 1024
+      ) {
+        setFormValues({ ...formValues, [name]: uplodedFile });
+      } else {
+        if (uplodedFile.size > 2 * 1024 * 1024) {
+          setAttachmentError("Size Exceded");
+        } else if (
+          uplodedFile.type !== "application/pdf" ||
+          uplodedFile.type !== "text/plain"
+        ) {
+          setAttachmentError("File Format is wrong");
+        }
+      }
     } else if (e.target.type === "checkbox") {
       setChecked({ ...checked, [e.target.id]: e.target.checked });
       if (e.target.checked) {
@@ -144,45 +163,55 @@ const Form = ({ props }) => {
     }
     return errors;
   };
-  const handleFocus = (t) => {
-    setFocusTitle({ ...focusTitle, [t.name]: true });
-  };
-  const handleBlur = (t) => {
-    if (t.value) {
-      setFocusTitle({ ...focusTitle, [t.name]: true });
-    } else {
-      setFocusTitle({ ...focusTitle, [t.name]: false });
-    }
-  };
+  //const handleFocus = (t) => {
+  //  setFocusTitle({ ...focusTitle, [t.name]: true });
+  //};
+  //const handleBlur = (t) => {
+  //  if (t.value) {
+  //    setFocusTitle({ ...focusTitle, [t.name]: true });
+  //  } else {
+  //    setFocusTitle({ ...focusTitle, [t.name]: false });
+  //  }
+  //};
+  const Input = styled("input")({
+    display: "none",
+  });
   const inputType = (f) => {
     if (f.type === "text") {
       return (
-        <input
-          type={f.type}
+        //<input
+        //  type={f.type}
+        //  name={f.name}
+        //  placeholder={f.placeholder}
+        // //  id={f.name}
+        //  className="input"
+        //  value={formValues[f.name]}
+        //  onChange={handleChange}
+        //  onFocus={(e) => handleFocus(e.target)}
+        //  onBlur={(e) => handleBlur(e.target)}
+        ///>
+        <TextField
+          label={f.title}
+          required={f.mendetory}
+          variant={f.variant}
           name={f.name}
-          placeholder={f.placeholder}
-          id={f.name}
-          className="input"
           value={formValues[f.name]}
           onChange={handleChange}
-          onFocus={(e) => handleFocus(e.target)}
-          onBlur={(e) => handleBlur(e.target)}
+          style={{ width: "100%" }}
         />
       );
     }
     if (f.type === "number") {
       return (
-        <input
-          mask="+(99) 99999-99999"
-          type={f.type}
+        <TextField
+          type="number"
+          label={f.title}
+          required={f.mendetory}
+          variant={f.variant}
           name={f.name}
-          placeholder={f.placeholder}
-          id={f.name}
-          className="input"
           value={formValues[f.name]}
           onChange={handleChange}
-          onFocus={(e) => handleFocus(e.target)}
-          onBlur={(e) => handleBlur(e.target)}
+          style={{ width: "100%" }}
         />
       );
     }
@@ -191,19 +220,19 @@ const Form = ({ props }) => {
         <div className="checkbox_div">
           {f.checkBox.map((c, index) => {
             return (
-              <div className="checkbox_row" key={index}>
-                <input
-                  type={f.type}
-                  id={c}
-                  name={f.name}
-                  checked={checked[c]}
-                  onChange={(e) => handleChange(e)}
-                />
-                <label htmlFor={c} style={{ cursor: "pointer" }}>
-                  <span></span>
-                  {c}
-                </label>
-              </div>
+              <FormControlLabel
+                key={index}
+                control={
+                  <Checkbox
+                    type="checkbox"
+                    id={c}
+                    name={f.name}
+                    checked={checked[c]}
+                    onChange={(e) => handleChange(e)}
+                  />
+                }
+                label={c}
+              />
             );
           })}
         </div>
@@ -211,52 +240,72 @@ const Form = ({ props }) => {
     }
     if (f.type === "textarea") {
       return (
-        <textarea
-          type={f.type}
+        //<textarea
+        //  type={f.type}
+        //  name={f.name}
+        //  placeholder={f.placeholder}
+        //  id={f.name}
+        //  className="input"
+        //  spellCheck="false"
+        //  value={formValues[f.name]}
+        //  onChange={handleChange}
+        //  onFocus={(e) => handleFocus(e.target)}
+        //  onBlur={(e) => handleBlur(e.target)}
+        ///>
+        <TextField
+          multiline
+          rows={8}
+          label={f.title}
+          required={f.mendetory}
+          variant={f.variant}
           name={f.name}
-          placeholder={f.placeholder}
-          id={f.name}
-          className="input"
-          spellCheck="false"
           value={formValues[f.name]}
           onChange={handleChange}
-          onFocus={(e) => handleFocus(e.target)}
-          onBlur={(e) => handleBlur(e.target)}
+          style={{ width: "100%" }}
         />
       );
     }
     if (f.type === "file") {
       return (
-        <input
-          type={f.type}
-          name={f.name}
-          placeholder={f.placeholder}
-          id={f.name}
-          className="input"
-          value={this}
-          onChange={handleChange}
-          onFocus={(e) => handleFocus(e.target)}
-          onBlur={(e) => handleBlur(e.target)}
-        />
+        <>
+          <span>
+            Attachment(.png, .pdf, .txt, .doc) <br></br>Max size allowed-2 MB
+          </span>
+          <label htmlFor="contained-button-file">
+            <Input
+              accept=".png, .pdf, .txt, .doc"
+              id="contained-button-file"
+              multiple
+              type="file"
+              name={f.name}
+              value={this}
+              onChange={handleChange}
+            />
+            <Button variant="contained" component="span" required={f.mendetory}>
+              Upload
+            </Button>
+          </label>
+          <span>
+            {attachmentError ? attachmentError : formValues[f.name].name}
+          </span>
+        </>
       );
     }
     if (f.type === "email") {
       return (
-        <input
+        <TextField
           type="email"
+          label={f.title}
+          required={f.mendetory}
+          variant={f.variant}
           name={f.name}
-          placeholder={f.placeholder}
-          id={f.name}
-          className="input"
-          value={this}
+          value={formValues[f.name]}
           onChange={handleChange}
-          onFocus={(e) => handleFocus(e.target)}
-          onBlur={(e) => handleBlur(e.target)}
+          style={{ width: "100%" }}
         />
       );
     }
   };
-
   return (
     <div className="container">
       {Object.keys(formErrors).length === 0 &&
@@ -280,16 +329,16 @@ const Form = ({ props }) => {
             return entry.field.map((f) => {
               return (
                 <div className={f.class} key={index}>
-                  <label
+                  {/*<label
                     className={
                       f.focus && focusTitle[f.name] ? focusOn : focusOff
                     }
                   >
                     {f.title}
                     {f.mendetory ? <em>*</em> : <span>(optional)</span>}
-                  </label>
+                  </label>*/}
                   {inputType(f)}
-                  <p className="alert">{formErrors[f.title]}</p>
+                  {/*<p className="alert">{formErrors[f.title]}</p>*/}
                 </div>
               );
             });

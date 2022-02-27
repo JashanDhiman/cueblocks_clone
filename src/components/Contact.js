@@ -123,80 +123,80 @@ const Contact = () => {
     hearabout: "",
   };
   //----------------------------------------------------------------------------------
-  const fieldsToShow_carrer = [
-    {
-      field: [
-        {
-          title: "name",
-          class: "form_row",
-          name: "name",
-          placeholder: "Enter your name",
-          mendetory: true,
-          focus: false,
-          type: "text",
-        },
-      ],
-    },
-    {
-      field: [
-        {
-          title: "email",
-          class: "form_row",
-          name: "email",
-          placeholder: "Enter your email",
-          mendetory: true,
-          focus: false,
-          type: "email",
-        },
-      ],
-    },
-    {
-      field: [
-        {
-          title: "phone",
-          class: "form_row",
-          name: "mobilephone",
-          placeholder: "Enter your phone",
-          mendetory: true,
-          focus: false,
-          type: "number",
-        },
-      ],
-    },
-    {
-      field: [
-        {
-          title: "job",
-          class: "form_row",
-          name: "jobtitle",
-          placeholder: "Enter job title",
-          mendetory: true,
-          focus: false,
-          type: "text",
-        },
-      ],
-    },
-    {
-      field: [
-        {
-          title: "file",
-          class: "form_row",
-          name: "attachment",
-          placeholder: "provide file",
-          mendetory: true,
-          focus: false,
-          type: "file",
-        },
-      ],
-    },
-  ];
-  const initialValues_carrer = {
-    email: "",
-    name: "",
-    jobtitle: "",
-    mobilephone: "",
-    attachment: "",
-  };
+  //const fieldsToShow_carrer = [
+  //  {
+  //    field: [
+  //      {
+  //        title: "name",
+  //        class: "form_row",
+  //        name: "name",
+  //        placeholder: "Enter your name",
+  //        mendetory: true,
+  //        focus: false,
+  //        type: "text",
+  //      },
+  //    ],
+  //  },
+  //  {
+  //    field: [
+  //      {
+  //        title: "email",
+  //        class: "form_row",
+  //        name: "email",
+  //        placeholder: "Enter your email",
+  //        mendetory: true,
+  //        focus: false,
+  //        type: "email",
+  //      },
+  //    ],
+  //  },
+  //  {
+  //    field: [
+  //      {
+  //        title: "phone",
+  //        class: "form_row",
+  //        name: "mobilephone",
+  //        placeholder: "Enter your phone",
+  //        mendetory: true,
+  //        focus: false,
+  //        type: "number",
+  //      },
+  //    ],
+  //  },
+  //  {
+  //    field: [
+  //      {
+  //        title: "job",
+  //        class: "form_row",
+  //        name: "jobtitle",
+  //        placeholder: "Enter job title",
+  //        mendetory: true,
+  //        focus: false,
+  //        type: "text",
+  //      },
+  //    ],
+  //  },
+  //  {
+  //    field: [
+  //      {
+  //        title: "file",
+  //        class: "form_row",
+  //        name: "attachment",
+  //        placeholder: "provide file",
+  //        mendetory: true,
+  //        focus: false,
+  //        type: "file",
+  //      },
+  //    ],
+  //  },
+  //];
+  //const initialValues_carrer = {
+  //  email: "",
+  //  name: "",
+  //  jobtitle: "",
+  //  mobilephone: "",
+  //  attachment: "",
+  //};
   return (
     <>
       <Navbar />
@@ -227,7 +227,7 @@ const Contact = () => {
               </ul>
 
               <Form props={[fieldsToShow, initialValues, "_contact"]} />
-              <hr></hr>
+              {/*<hr></hr>*/}
               {/*<Form
                 props={[fieldsToShow_carrer, initialValues_carrer, "_carrer"]}
               />

@@ -3,73 +3,9 @@
 /*==================== VARIABLES CSS ====================*/
 :root {
   --header-height: 3rem;
-
-  /*========== Colors ==========*/
-  /* Change favorite color */
-  --hue-color: 250; /*Purple 250 - Green 142 - Blue 230 - Pink 340*/
-
-  /* HSL color mode */
-  --first-color: hsl(var(--hue-color), 69%, 61%);
-  --first-color-second: hsl(var(--hue-color), 69%, 61%);
-  --first-color-alt: hsl(var(--hue-color), 57%, 53%);
-  --first-color-lighter: hsl(var(--hue-color), 92%, 85%);
-  --title-color: hsl(var(--hue-color), 8%, 15%);
-  --text-color: hsl(var(--hue-color), 8%, 45%);
-  --text-color-light: hsl(var(--hue-color), 8%, 65%);
-  --input-color: hsl(var(--hue-color), 70%, 96%);
-  --body-color: hsl(var(--hue-color), 60%, 99%);
-  --container-color: #fff;
-
   /*========== Font and typography ==========*/
   --body-font: "Poppins", sans-serif;
-
-  /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px ... */
-  --big-font-size: 2rem;
-  --h1-font-size: 1.5rem;
-  --h2-font-size: 1.25rem;
-  --h3-font-size: 1.125rem;
-  --normal-font-size: 0.938rem;
-  --small-font-size: 0.813rem;
-  --smaller-font-size: 0.75rem;
-
-  /*========== Font weight ==========*/
-  --font-medium: 500;
-  --font-semi-bold: 600;
-
-  /*========== Margenes Bottom ==========*/
-  /* .25rem = 4px, .5rem = 8px, .75rem = 12px ... */
-  --mb-0-25: 0.25rem;
-  --mb-0-5: 0.5rem;
-  --mb-0-75: 0.75rem;
-  --mb-1: 1rem;
-  --mb-1-5: 1.5rem;
-  --mb-2: 2rem;
-  --mb-2-5: 2.5rem;
-  --mb-3: 3rem;
-
-  /*========== z index ==========*/
-  --z-tooltip: 10;
-  --z-fixed: 100;
-  --z-modal: 1000;
 }
-
-/* Font size for large devices */
-@media screen and (min-width: 968px) {
-  :root {
-    --big-font-size: 3rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1rem;
-    --small-font-size: 0.875rem;
-    --smaller-font-size: 0.813rem;
-  }
-}
-
-/*========== Variables Dark theme ==========*/
-
-/*========== Button Dark/Light ==========*/
-
 /*==================== BASE ====================*/
 *,
 *::before,
@@ -331,21 +267,6 @@ em,
   padding: 0 5px;
   left: 20px;
 }
-/*.input {
-  outline: none;
-  font-size: 18px;
-  margin: 10px 0;
-  width: 100%;
-  border: 1px solid #000;
-  height: 68px;
-  padding: 26px;
-  font-weight: 400;
-  z-index: 1;
-  background-color: transparent;
-}*/
-input::placeholder {
-  color: #c0c0c0;
-}
 @media screen and (max-width: 767px) {
   .apply_form .form_inputs {
     grid-template-columns: repeat(1, 1fr);
@@ -355,9 +276,6 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
 }
 .submit_button {
   display: inline-block;
@@ -396,7 +314,6 @@ input[type="number"] {
 .apply_form .form_inputs_carrer .form_row {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #000;
   color: #000;
   width: calc(100% - 30px);
   margin-bottom: 10px;
@@ -469,49 +386,20 @@ input[type="number"] {
   padding: 0 5px;
   left: 20px;
 }
-.apply_form .form_inputs_contact .form_row label,
-.apply_form .form_inputs_contact .textbox_row label {
-  position: absolute;
-  left: 25px;
-  top: 19px;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  font-size: 20px;
-  z-index: 0;
-  font-weight: 400;
-  text-transform: capitalize;
-}
-.apply_form .form_inputs_contact .checkbox_row label {
-  margin: 0.6em 0;
-  align-items: center;
-  -webkit-transition: color 0.25s cubic-bezier(0.4, 0, 0.23, 1);
-  transition: color 0.25s cubic-bezier(0.4, 0, 0.23, 1);
-  text-transform: capitalize;
-  line-height: 30px;
-  font-weight: 300;
-  font-size: 24px;
-}
 .apply_form .form_inputs_contact .textbox_row {
   position: relative;
   margin-bottom: 20px;
 }
-.apply_form .form_inputs_contact .textbox_row textarea {
-  border: 1px solid #000;
-  border-radius: 10px;
-  height: 168px;
-  padding: 15px 25px;
-  font-weight: 400;
-  z-index: 1;
-  position: relative;
-  resize: none;
-  width: 100%;
-  margin-top: 15px;
-  background-color: transparent;
-}
+
 .checkbox_div {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
+}
+@media screen and (max-width: 767px) {
+  .checkbox_div {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 .apply_form .form_inputs_contact .checkbox_row {
   float: left;
@@ -526,13 +414,6 @@ input[type="number"] {
   margin-bottom: 20px;
   display: grid;
   justify-items: start;
-}
-.apply_form .form_inputs_contact .checkbox_row input[type="checkbox"] {
-  height: 25px;
-  width: 25px;
-  z-index: 9;
-  margin-right: 20px;
-  cursor: pointer;
 }
 /* --------------footer -------------------------------- */
 .sub_footer {

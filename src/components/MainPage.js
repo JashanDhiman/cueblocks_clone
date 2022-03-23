@@ -7,7 +7,7 @@ const MainPage = () => {
     <>
       <h1>my heading</h1>
       <div>Blog</div>
-      <p>
+      <p className="text-xl font-bold underline">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum delectus
         quod fugit in dolores aliquid error vero quas, ipsam placeat repudiandae
         voluptatem cupiditate doloribus ipsa nesciunt deserunt reiciendis omnis

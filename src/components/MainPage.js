@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import React from "react";
-import image from "./logo192.png";
 
 const MainPage = () => {
   return (
